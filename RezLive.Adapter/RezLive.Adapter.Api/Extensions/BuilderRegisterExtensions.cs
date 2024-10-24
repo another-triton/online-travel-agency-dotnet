@@ -14,12 +14,12 @@ public static class BuilderRegisterExtensions
         var serilogAWSCloudWatchSettings = builder.Configuration.GetSection(Constants.SERILOG_AWSCLOUDWATCH_SETTINGS).Get<SerilogAWSCloudWatchSettings>();
 
         ///Uncomment following section to use the credentials stored in AWS
-        
+        /*
         CredentialProfileStoreChain chain = new ();
         chain.TryGetAWSCredentials(serilogAWSCloudWatchSettings?.profile, out AWSCredentials awsCredentials);
         var client = new AmazonCloudWatchLogsClient(credentials: awsCredentials, serilogAWSCloudWatchSettings?.region);
-        
-        
+        */
+        AmazonCloudWatchLogsClient client = new("a", "/c3KlvQf/zD7MCYNNo+n+1/mShH4dvK/NL/2cj7q", serilogAWSCloudWatchSettings?.region);
 
         //Init Serilog
         builder.Host.UseSerilog((context, lc) =>
