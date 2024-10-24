@@ -1,0 +1,7 @@
+@RezLive.Processor.Api_HostAddress = http://localhost:5174
+
+
+GET {{RezLive.Processor.Api_HostAddress}}/
+##rezlive-correlation-id:12121212121
+###
+ 

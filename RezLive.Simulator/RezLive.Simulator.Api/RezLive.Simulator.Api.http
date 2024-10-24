@@ -1,0 +1,6 @@
+@RezLive.Simulator.Api_HostAddress = http://localhost:5044
+@Id = 1
+
+GET {{RezLive.Simulator.Api_HostAddress}}/accomodation-by-supplier/1
+Correlation-Id: 10001
+###

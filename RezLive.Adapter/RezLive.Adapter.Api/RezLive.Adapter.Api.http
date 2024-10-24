@@ -1,0 +1,7 @@
+@RezLive.Adapter.Api_HostAddress = http://localhost:5056
+
+
+GET {{RezLive.Adapter.Api_HostAddress}}/accomodation-by-supplier/1
+rezlive-correlation-id:777777777
+Accept:application/xml
+###
