@@ -19,7 +19,7 @@ public static class BuilderRegisterExtensions
         chain.TryGetAWSCredentials(serilogAWSCloudWatchSettings?.profile, out AWSCredentials awsCredentials);
         var client = new AmazonCloudWatchLogsClient(credentials: awsCredentials, serilogAWSCloudWatchSettings?.region);
         
-        //AmazonCloudWatchLogsClient client = new("a", "a", serilogAWSCloudWatchSettings?.region);
+        
 
         //Init Serilog
         builder.Host.UseSerilog((context, lc) =>
