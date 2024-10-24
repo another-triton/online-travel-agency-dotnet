@@ -10,8 +10,8 @@ public static class BuilderRegisterExtensions
 {
     public static WebApplicationBuilder RegisterSeriLog(this WebApplicationBuilder builder)
     {
-        // Get awsCredentials using the AWS profile configured on machine and Create an AWS CloudWatch client
-        var serilogAWSCloudWatchSettings = builder.Configuration.GetSection(Constants.SERILOG_AWSCLOUDWATCH_SETTINGS).Get<SerilogAWSCloudWatchSettings>();
+        // // Get awsCredentials using the AWS profile configured on machine and Create an AWS CloudWatch client
+        // var serilogAWSCloudWatchSettings = builder.Configuration.GetSection(Constants.SERILOG_AWSCLOUDWATCH_SETTINGS).Get<SerilogAWSCloudWatchSettings>();
 
         ///Uncomment following section to use the credentials stored in AWS
         /*
@@ -19,18 +19,23 @@ public static class BuilderRegisterExtensions
         chain.TryGetAWSCredentials(serilogAWSCloudWatchSettings?.profile, out AWSCredentials awsCredentials);
         var client = new AmazonCloudWatchLogsClient(credentials: awsCredentials, serilogAWSCloudWatchSettings?.region);
         */
-        AmazonCloudWatchLogsClient client = new("a", "/c3KlvQf/zD7MCYNNo+n+1/mShH4dvK/NL/2cj7q", serilogAWSCloudWatchSettings?.region);
+        // AmazonCloudWatchLogsClient client = new("a", "/c3KlvQf/zD7MCYNNo+n+1/mShH4dvK/NL/2cj7q", serilogAWSCloudWatchSettings?.region);
 
-        //Init Serilog
+        ////Init Serilog
+        //builder.Host.UseSerilog((context, lc) =>
+        //    lc.ReadFrom.Configuration(context.Configuration)
+        //    .WriteTo.AmazonCloudWatch(
+        //        logGroup: serilogAWSCloudWatchSettings?.logGroup,
+        //        logStreamPrefix: serilogAWSCloudWatchSettings?.logStreamPrefix + DateTime.UtcNow.ToString(Constants.SERILOG_DATE_FORMAT_SHORT),
+        //        restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Verbose,
+        //        cloudWatchClient: client)
+        //    .Enrich.WithCorrelationIdHeader(Constants.CORRELATION_ID_HEADER)
+        //);
         builder.Host.UseSerilog((context, lc) =>
-            lc.ReadFrom.Configuration(context.Configuration)
-            .WriteTo.AmazonCloudWatch(
-                logGroup: serilogAWSCloudWatchSettings?.logGroup,
-                logStreamPrefix: serilogAWSCloudWatchSettings?.logStreamPrefix + DateTime.UtcNow.ToString(Constants.SERILOG_DATE_FORMAT_SHORT),
-                restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Verbose,
-                cloudWatchClient: client)
-            .Enrich.WithCorrelationIdHeader(Constants.CORRELATION_ID_HEADER)
-        );
+          lc.ReadFrom.Configuration(context.Configuration)
+          .WriteTo.Console()
+          .Enrich.WithCorrelationIdHeader(Constants.CORRELATION_ID_HEADER)
+      );
 
         return builder;
     }

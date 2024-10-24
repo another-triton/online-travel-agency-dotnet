@@ -32,6 +32,12 @@ public static class BuilderRegisterExtensions
         //     .Enrich.WithCorrelationIdHeader(Constants.CORRELATION_ID_HEADER)
         // );
 
+        builder.Host.UseSerilog((context, lc) =>
+            lc.ReadFrom.Configuration(context.Configuration)
+            .WriteTo.Console()
+            .Enrich.WithCorrelationIdHeader(Constants.CORRELATION_ID_HEADER)
+        );
+
         return builder;
     }
 
